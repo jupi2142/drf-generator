@@ -8,7 +8,7 @@ from .views import view_set_factory
 
 class DRYRouter(routers.DefaultRouter):
     def register(self, prefix, viewset_or_model, base_name=None):
-        if isinstance(viewset_or_model, models):
+        if isinstance(viewset_or_model, models.Model):
             viewset = view_set_factory(viewset_or_model)
         else:
             viewset = viewset_or_model
