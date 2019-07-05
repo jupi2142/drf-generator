@@ -6,12 +6,12 @@ from rest_framework import routers
 from .views import view_set_factory
 
 
-class DRFRouter(routers.DefaultRouter):
+class DRYRouter(routers.DefaultRouter):
     def register(self, prefix, viewset_or_model, base_name=None):
         if isinstance(viewset_or_model, models):
             viewset = view_set_factory(viewset_or_model)
         else:
             viewset = viewset_or_model
-        return super(DRFRouter, self).register(prefix,
+        return super(DRYRouter, self).register(prefix,
                                                viewset,
                                                base_name)
