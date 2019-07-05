@@ -1,15 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from rest_framework import serializers
-# Default serializer setting
+# Default serializer setting, they can specify their own serializer and
+# view[set] class
 # A separate serializer maker which also accepts mixins
 # A separate viewset maker which also accepts mixins
 # Expand?
+from .settings import SERIALIZER
 
 
 def serializer_factory(model, mixins=()):
     mixins = list(mixins)
-    mixins.append(serializers.HyperlinkedModelSerializer)
+    mixins.append(SERIALIZER)
 
     class TheSerializer(mixins[0]):
         class Meta:
