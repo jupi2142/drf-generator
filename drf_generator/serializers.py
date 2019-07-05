@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from rest_framework import serializers, viewsets
-
-
+from rest_framework import serializers
+# Default serializer setting
 # A separate serializer maker which also accepts mixins
 # A separate viewset maker which also accepts mixins
-def SerializerFactory(model, mixins=()):
+# Expand?
+
+
+def serializer_factory(model, mixins=()):
     mixins = list(mixins)
     mixins.append(serializers.HyperlinkedModelSerializer)
 
@@ -16,13 +18,3 @@ def SerializerFactory(model, mixins=()):
     TheSerializer.Meta.model = model
 
     return TheSerializer
-
-
-def ViewSetFactory(model, serializer=None):
-    class ViewSet(viewsets.ModelViewSet):
-        pass
-
-    ViewSet.queryset = model.objects.all()
-    ViewSet.serializer_class = serializer or SerializerFactory(model)
-
-    return ViewSet
