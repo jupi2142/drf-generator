@@ -9,13 +9,7 @@ from .settings import SERIALIZER
 
 
 def serializer_factory(model, mixins=()):
-    mixins = list(mixins)
-    mixins.append(SERIALIZER)
-
-    class TheSerializer(mixins[0]):
-        class Meta:
-            fields = "__all__"
-
-    TheSerializer.Meta.model = model
-
-    return TheSerializer
+    meta = type('Meta', (), {'fields': "__all__", 'model': model})
+    return type('{}Serializer'.format(model.__name__),
+                tuple(mixins) + (SERIALIZER,),
+                {'Meta': meta})

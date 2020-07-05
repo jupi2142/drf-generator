@@ -6,10 +6,10 @@ from .serializers import serializer_factory
 
 
 def view_set_factory(model, serializer=None):
-    class ViewSet(VIEWSET):
-        pass
-
-    ViewSet.queryset = model.objects.all()
-    ViewSet.serializer_class = serializer or serializer_factory(model)
-
-    return ViewSet
+    return type('{}ViewSet'.format(model.__name__),
+                (VIEWSET,),
+                {
+                    'queryset': model.objects.all(),
+                    'serializer_class': (serializer or
+                                         serializer_factory(model)),
+                })
