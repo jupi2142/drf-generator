@@ -1,1 +1,1 @@
-TEST
+DRF-generator
